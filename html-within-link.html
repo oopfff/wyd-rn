@@ -4,17 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML Editor</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        textarea {
-            width: 100%;
-            height: 300px;
-        }
-    </style>
-    <link rel="stylesheet" href="/styles/basic.css">
+    <link rel="stylesheet" href="/styles/basic.css" id="cssLink">
 </head>
 <body>
 
@@ -44,15 +34,26 @@
         alert('Link copied to clipboard!');
     }
 
-    // Check if there's data in the URL and populate the textarea
-    const urlParams = new URLSearchParams(window.location.search);
-    const dataParam = urlParams.get('data');
-    if (dataParam) {
-        const decodedHtml = decodeURIComponent(dataParam);
-        document.getElementById('htmlInput').value = decodedHtml;
-        // Set the page's HTML to the loaded data
-        document.body.innerHTML = decodedHtml;
-    }
+    window.onload = function() {
+        // Check if there's data in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataParam = urlParams.get('data');
+        if (dataParam) {
+            const decodedHtml = decodeURIComponent(dataParam);
+
+            // Remove all child elements in the body
+            document.body.innerHTML = '';
+
+            // Remove the CSS link element
+            const cssLink = document.getElementById('cssLink');
+            if (cssLink) {
+                cssLink.remove();
+            }
+
+            // Replace the content with the decoded HTML
+            document.body.innerHTML = decodedHtml;
+        }
+    };
 </script>
 
 </body>
