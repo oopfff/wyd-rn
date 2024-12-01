@@ -12,9 +12,6 @@ body {
   flex-direction: column;
   font-family: Arial;
   text-align: center;
-  overscroll-behavior-y: none;
-  overscroll-behavior-x: none;
-  overflow-x: hidden;
 }
 textarea {
     width: 100%;
@@ -22,7 +19,7 @@ textarea {
     border-radius: 8px;
     border: 0px;
 }
-button {
+button, select {
     background-color: #fa7f1f;
     border: 0px;
     border-radius: 4px;
