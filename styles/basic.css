@@ -1,1 +1,4 @@
-
+html {
+  background-image: url("images/background.jpg");
+  filter: blur(8px);
+}
