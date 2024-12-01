@@ -12,6 +12,9 @@ body {
   flex-direction: column;
   font-family: Arial;
   text-align: center;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+  overflow-x: hidden;
 }
 textarea {
     width: 100%;
