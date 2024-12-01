@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Discord Webhook and URL Encoder</title>
+        <link rel="stylesheet" href="/styles/basic.css">
+    </head>
+    <body>
+        <h1>Please don't turn off my computer!</h1>
+        <h1 id="reason">Reason:</h1>
+        <div id="selectDiv"><p>Select a reason:</p>
+            <select onChange="select()" id="listOfReasons">
+                <option value="game">I am updating a game.</option>
+                <option value="app">I am updating an app.</option>
+                <option value="download">I am downloading something.</option>
+                <option value="other">Other</option>
+            </select>
+            <p>Other</p>
+            <input type="text" id="reasontext" name="reasons"><br><br>
+            <button id="enterButton" onClick="submit()">Finish</button>
+        </div>
+    </body>
+    <script>
+        function select() {
+            if (document.getElementById("listOfReasons").value === "game") {
+                document.getElementById("reason").innerHTML = "I am updating a game."
+            } else if (document.getElementById("listOfReasons").value === "app") {
+                document.getElementById("reason").innerHTML = "I am updating an app."
+            } else if (document.getElementById("listOfReasons").value === "download") {
+                document.getElementById("reason").innerHTML = "I am downloading something."
+            } else if (document.getElementById("listOfReasons").value === "other") {
+                document.getElementById("reason").innerHTML = document.getElementById("reasontext").value
+            }
+        };
+    
+        function submit() {
+            if (document.getElementById("listOfReasons").value === "other") {
+                document.getElementById("reason").innerHTML = document.getElementById("reasontext").value;
+            }
+            document.getElementById("selectDiv").remove();
+            document.body.style.backgroundImage = "url('/images/water.gif')";
+            document.body.style.cursor = "wait";
+        };
+    </script>
+</html>
