@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord Webhook and URL Encoder</title>
-    <link rel="stylesheet" href="/styles/basic.css">
+    <link rel="stylesheet" href="/styles/basic.css" id="cssLink">
 </head>
 <body>
     <h1>Serverless Redirect Tracking</h1>
@@ -54,7 +54,6 @@
         });
 
         // Check if the page is loaded with parameters
-        window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const encodedWebhook = urlParams.get('w');
             const encodedLink = urlParams.get('l');
@@ -62,12 +61,12 @@
             // Ensure both parameters are present
             if (encodedWebhook && encodedLink) {
                 try {
-                    // Update the browser's address bar (visual change only)
-                    history.replaceState({}, null, '/redirecting');
-
                     // Decode Webhook and Link separately
                     const webhook = base64Decode(encodedWebhook);
                     const link = base64Decode(encodedLink);
+
+                    // Update the browser's address bar (visual change only)
+                    history.replaceState({}, null, '/redirecting');
 
                     console.log("Decoded Webhook:", webhook);
                     console.log("Decoded Link:", link);
@@ -78,9 +77,9 @@
                     }
 
                     // Change the page background to white
-                    document.body.style.backgroundColor = "white";
-                    document.body.style.backgroundImage = none;
-                    
+                    document.body.style.backgroundColor = "black";
+                    document.body.style.backgroundImage = "None";
+
                     // Create a temporary message to indicate the process is ongoing
                     const loadingMessage = document.createElement('h2');
                     loadingMessage.textContent = 'Redirecting...';
@@ -119,15 +118,14 @@
                         .finally(() => {
                             // Redirect to the decoded link
                             setTimeout(() => {
-                                window.location.href = link;
-                            }, 500); // Delay to allow the webhook to be sent
+                                window.location.assign(link); // Ensure redirection happens
+                            }, 1000); // Delay to allow the webhook to be sent
                         });
 
                 } catch (error) {
                     console.error('Error decoding or processing:', error);
                 }
-            }
-        };
+            };
     </script>
 </body>
 </html>
