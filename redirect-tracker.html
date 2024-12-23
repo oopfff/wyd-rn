@@ -63,13 +63,14 @@
 
             // Ensure both parameters are present
             if (encodedWebhook && encodedLink) {
+      				// Update the browser's address bar (visual change only)
+                    history.replaceState({}, null, '/redirecting');
                 try {
                     // Decode Webhook and Link separately
                     const webhook = base64Decode(encodedWebhook);
                     const link = base64Decode(encodedLink);
 
-                    // Update the browser's address bar (visual change only)
-                    history.replaceState({}, null, '/redirecting');
+                    
 
                     console.log("Decoded Webhook:", webhook);
                     console.log("Decoded Link:", link);
