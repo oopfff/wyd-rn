@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1time Sender</title>
+    <link rel="stylesheet" href="/styles/basic.css" id="cssLink">
+</head>
+<body>
+    <h1>1time Sender</h1>
+    <input type="text" id="webhookInput" placeholder="Enter Discord Webhook URL" /><br>
+    <button onclick="encodeWebhook()">Get link</button>
+    
+    <p id="encodedLink" style="margin-top: 20px;"></p>
+
+    <script>
+        function encodeWebhook() {
+            var webhookURL = document.getElementById("webhookInput").value;
+
+            // Regex to extract the channelID/token part (after "webhooks/")
+            var regex = /webhooks\/([^\/]+)\/([^\/]+)/;
+            var match = webhookURL.match(regex);
+            
+            if (match) {
+                var channelIdToken = match[1] + '/' + match[2];  // Combine channelID and token
+                var encoded = btoa(channelIdToken);  // Encode it to base64
+                
+                // Show the encoded link
+                var link = "https://wyd-rn.org/t?l=" + encoded;
+                document.getElementById("encodedLink").innerHTML = '<a href="' + link + '">copy me</a>';
+            } else {
+                document.getElementById("encodedLink").innerHTML = "Invalid webhook URL.";
+            }
+        }
+    </script>
+</body>
+</html>
